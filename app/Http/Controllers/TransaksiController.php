@@ -14,6 +14,8 @@ class TransaksiController extends Controller
      * @return \Illuminate\Http\Response
      */
     
+
+
     //get booking
      public function index()
     {
@@ -48,6 +50,8 @@ class TransaksiController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+
+
     public function getById($id)
     {
         $Ticket = Transaksi::find($id);
@@ -78,9 +82,17 @@ class TransaksiController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+
+    //update transaksi
     public function updateCustomer(Request $request, $id)
     {
         $Ticket = Transaksi::find($id);
+        if($list->stok < $request['total_tiket']){
+            return response()->json([
+                'status' => 404,
+                'message' => 'Stok kurang'
+            ], 404);
+        }
         if($Ticket){
             $Ticket->nama_event = $request->nama_event ? $request->nama_event : $Ticket->nama_event;
             $Ticket->nama = $request->nama ? $request->nama : $Ticket->nama;
@@ -107,6 +119,12 @@ class TransaksiController extends Controller
     {
         $list = Ticket::where('nama_event', $request['nama_event'])->first();
         if($list){
+            if($list->stok < $request['total_tiket']){
+                return response()->json([
+                    'status' => 404,
+                    'message' => 'Stok Kurang'
+                ], 404);
+            }
             // aritmatika pengurangan stok
             $list->stok = $list->stok - $request['total_tiket'];
             $list->save();
@@ -142,6 +160,8 @@ class TransaksiController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+
+    // delete booking
     public function deleteCustomer($id)
     {
         $userLogin = auth()->user();

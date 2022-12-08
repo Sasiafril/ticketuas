@@ -13,6 +13,8 @@ class TicketController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    //get ticket
     public function index()
     {
         $Ticket = Ticket::all();
@@ -47,7 +49,7 @@ class TicketController extends Controller
             ], 404);
         }
 
-        // create data
+        // create data/ post ticket
         $table = Ticket::create([
             "nama_event" => $request->nama_event,
             "tanggal" => $request->tanggal,
@@ -70,6 +72,7 @@ class TicketController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+
 
     //get ticket/id
     public function show($id)
@@ -107,7 +110,9 @@ class TicketController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    //update ticket
+
+
+    //update ticket/ put ticket
     public function update(Request $request, $id)
     {
         $userLogin = auth()->user();
@@ -146,6 +151,8 @@ class TicketController extends Controller
      * @return \Illuminate\Http\Response
      */
 
+
+     
     //Delete Ticket/id
     public function destroy($id)
     {

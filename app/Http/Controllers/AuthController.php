@@ -39,6 +39,8 @@ class AuthController extends Controller
             'token_type' => 'Bearer', ]);
     }
 
+
+
     public function login(Request $request)
     {
         if (!Auth::attempt($request->only('email', 'password')))
@@ -59,6 +61,8 @@ class AuthController extends Controller
         return response()
             ->json(['message' => 'Hi '.$user->name.' ','access_token' => $token, 'token_type' => 'Bearer', ]);
     }
+
+
 
     public function loginAdmin(Request $request)
     {
@@ -81,6 +85,8 @@ class AuthController extends Controller
             ->json(['message' => 'Hi '.$admin->name.' ','access_token' => $token, 'token_type' => 'Bearer', ]);
     }
 
+
+
     public function loginSuperAdmin(Request $request)
     {
         if (!Auth::attempt($request->only('email', 'password')))
@@ -101,6 +107,8 @@ class AuthController extends Controller
         return response()
             ->json(['message' => 'Hi '.$admin->name.' ','access_token' => $token, 'token_type' => 'Bearer', ]);
     }
+
+    
 
     public function updateRole(Request $request){
         $userLogin = auth()->user();
@@ -124,7 +132,7 @@ class AuthController extends Controller
         return response()->json([
             'status' => 201, 
             'data' => $admin,
-            'message' => "Success update data"
+            'message' => "Success update Role"
         ], 201);
     }
 
